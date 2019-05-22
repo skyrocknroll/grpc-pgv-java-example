@@ -12,6 +12,7 @@
         <grpc.version>1.19.0</grpc.version><!-- CURRENT_GRPC_VERSION -->
         <protobuf.version>3.6.1</protobuf.version>
         <protoc.version>3.6.1</protoc.version>
+        <pgv.version>0.1.0-SNAPSHOT</pgv.version>
         <!-- required for jdk9 -->
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
@@ -54,7 +55,7 @@
         <dependency>
             <groupId>io.envoyproxy.protoc-gen-validate</groupId>
             <artifactId>pgv-java-stub</artifactId>
-            <version>0.1.0-SNAPSHOT</version>
+            <version>${pgv.version}</version>
         </dependency>
         <dependency>
             <groupId>io.grpc</groupId>
@@ -123,6 +124,17 @@
                             <goal>compile</goal>
                             <goal>compile-custom</goal>
                         </goals>
+                    </execution>
+                    <execution>
+                        <id>protoc-java-pgv</id>
+                        <goals>
+                            <goal>compile-custom</goal>
+                        </goals>
+                        <configuration>
+                            <pluginParameter>lang=java</pluginParameter>
+                            <pluginId>java-pgv</pluginId>
+                            <pluginArtifact>io.envoyproxy.protoc-gen-validate:protoc-gen-validate:${pgv.version}:exe:${os.detected.classifier}</pluginArtifact>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
