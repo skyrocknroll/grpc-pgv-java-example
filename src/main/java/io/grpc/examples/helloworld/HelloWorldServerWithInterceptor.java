@@ -23,6 +23,7 @@ import io.envoyproxy.pgv.ValidatorIndex;
 import io.envoyproxy.pgv.grpc.ValidatingServerInterceptor;
 import io.grpc.Server;
 import io.grpc.ServerBuilder;
+import io.grpc.examples.manualflowcontrol.HelloworldStreamingValidator;
 
 import java.io.IOException;
 import java.util.logging.Logger;
@@ -37,22 +38,21 @@ public class HelloWorldServerWithInterceptor {
 //    ReflectiveIndex Fails. Fix available in PR  https://github.com/envoyproxy/protoc-gen-validate/pull/186.
 //  Work around commenting out   option java_multiple_files = true;
     private ValidatorIndex reflectiveValidatorIndex = new ReflectiveValidatorIndex();
-    private ValidatorImpl validator = HelloworldValidator.validatorFor(HelloRequest.class);
-    private ExplicitValidatorIndex explicitValidatorIndex = new ExplicitValidatorIndex();
+//    private ValidatorImpl validator = HelloWorldProtoValidator.validatorFor(HelloWorldProto.HelloRequest.class);
+//    private ExplicitValidatorIndex explicitValidatorIndex = new ExplicitValidatorIndex();
 
 
     private void start() throws IOException {
-        explicitValidatorIndex.add(HelloRequest.class, validator);
+//        explicitValidatorIndex.add(HelloWorldProto.HelloRequest.class, validator);
         /* The port on which the server should run */
         int port = 50052;
         server = ServerBuilder.forPort(port)
             .addService(new GreeterImplImpl())
 //            Interceptor to Validate.
-            .intercept(new ValidatingServerInterceptor(explicitValidatorIndex))
+            .intercept(new ValidatingServerInterceptor(reflectiveValidatorIndex))
             .build()
             .start();
         logger.info("Server started, listening on " + port);
-        System.out.println(HelloworldValidator.HelloRequestValidator.class);
         Runtime.getRuntime().addShutdownHook(new Thread() {
             @Override
             public void run() {
