@@ -4,6 +4,8 @@ import io.envoyproxy.pgv.ReflectiveValidatorIndex;
 import io.envoyproxy.pgv.ValidationException;
 import io.envoyproxy.pgv.ValidatorImpl;
 import io.envoyproxy.pgv.ValidatorIndex;
+
+
 import io.grpc.stub.StreamObserver;
 
 public class GreeterImplImpl extends GreeterGrpc.GreeterImplBase {
@@ -11,17 +13,17 @@ public class GreeterImplImpl extends GreeterGrpc.GreeterImplBase {
 
     @Override
     public void sayHello(HelloRequest req, StreamObserver<HelloReply> responseObserver) {
-        String error = null;
+//        String error = null;
         System.out.println(req.getName());
-//        System.out.println("Helll!!" + req.getName() + "\n");
-//        ValidatorIndex explicitValidatorIndex = new ExplicitValidatorIndex();
-        ValidatorImpl validator = HelloworldValidator.validatorFor(HelloRequest.class);
-        try {
-            validator.assertValid(req, reflectiveValidatorIndex);
-        } catch (ValidationException e) {
-            error = e.getMessage();
-//            e.printStackTrace();
-        }
+////        System.out.println("Helll!!" + req.getName() + "\n");
+////        ValidatorIndex explicitValidatorIndex = new ExplicitValidatorIndex();
+//        ValidatorImpl validator = HelloworldValidator.validatorFor(HelloRequest.class);
+//        try {
+//            validator.assertValid(req, reflectiveValidatorIndex);
+//        } catch (ValidationException e) {
+//            error = e.getMessage();
+////            e.printStackTrace();
+//        }
 
 //        HelloworldValidator.HelloRequestValidator helloRequestValidator = new HelloworldValidator.HelloRequestValidator();
 //        try {
@@ -31,11 +33,12 @@ public class GreeterImplImpl extends GreeterGrpc.GreeterImplBase {
 //        }
 //        HelloworldValidator.HelloRequestValidator requestValidator = new HelloworldValidator.HelloRequestValidator();
         HelloReply reply;
-        if( error != null){
-            reply = HelloReply.newBuilder().setMessage("Error Occurred! " + error).build();
-        }else {
-            reply = HelloReply.newBuilder().setMessage("Hello " + req.getName()).build();
-        }
+//        if( error != null){
+//            reply = HelloReply.newBuilder().setMessage("Error Occurred! " + error).build();
+//        }else {
+//            reply = HelloReply.newBuilder().setMessage("Hello " + req.getName()).build();
+//        }
+        reply = HelloReply.newBuilder().setMessage("Hello " + req.getName()).build();
 
         responseObserver.onNext(reply);
         responseObserver.onCompleted();
