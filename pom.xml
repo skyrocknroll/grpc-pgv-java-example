@@ -35,6 +35,11 @@
             <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
 
         </repository>
+        <repository>
+            <id>forge-releases</id>
+            <name>Sonatype Forge Releases</name>
+            <url>http://repository.sonatype.org/content/repositories/releases</url>
+        </repository>
 
     </repositories>
 

@@ -17,6 +17,7 @@ option java_multiple_files = true;
 option java_package = "io.grpc.examples.helloworld";
 option java_outer_classname = "HelloWorldProto";
 option objc_class_prefix = "HLW";
+import "validate/validate.proto";
 
 package helloworld;
 
@@ -28,7 +29,9 @@ service Greeter {
 
 // The request message containing the user's name.
 message HelloRequest {
-    string name = 1;
+    string name = 1 [(validate.rules).string.min_len = 3];
+
+
 }
 
 // The response message containing the greetings

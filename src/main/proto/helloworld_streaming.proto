@@ -17,6 +17,7 @@ option java_multiple_files = true;
 option java_package = "io.grpc.examples.manualflowcontrol";
 option java_outer_classname = "HelloStreamingProto";
 option objc_class_prefix = "HLWS";
+import "validate/validate.proto";
 
 package manualflowcontrol;
 
