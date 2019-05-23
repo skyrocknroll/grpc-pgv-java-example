@@ -40,7 +40,6 @@
             <name>Sonatype Forge Releases</name>
             <url>http://repository.sonatype.org/content/repositories/releases</url>
         </repository>
-
     </repositories>
 
 
